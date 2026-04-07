@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Darling Teddy</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Pinyon+Script&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            pinyon: ['"Pinyon Script"', 'cursive'],
+            dancing: ['"Dancing Script"', 'cursive'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    /* Custom Animations for Vanilla JS */
+    .phase {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    }
+    
+    .phase.active {
+      display: flex;
+    }
+
+    .phase.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .phase.hide {
+      opacity: 0;
+      transform: translateY(-20px) scale(0.95);
+    }
+
+    /* Floating Background Orbs */
+    @keyframes float1 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(40px, -50px) scale(1.1); }
+    }
+    @keyframes float2 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-50px, 40px) scale(1.2); }
+    }
+    .orb-1 { animation: float1 15s ease-in-out infinite; }
+    .orb-2 { animation: float2 18s ease-in-out infinite reverse; }
+
+    /* Button Pulse Animation */
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 0 rgba(225,29,72,0); transform: scale(1); }
+      50% { box-shadow: 0 0 30px rgba(225,29,72,0.8); transform: scale(1.05); }
+    }
+    .btn-pulse { animation: pulse-glow 1.5s infinite; }
+
+    /* Subtle Bounce for text/emojis */
+    @keyframes bounce-subtle {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .animate-bounce-subtle { animation: bounce-subtle 2s infinite ease-in-out; }
+  </style>
+</head>
+
+<body class="relative min-h-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-pink-100 via-pink-200 to-rose-300 overflow-hidden p-4">
+
+  <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+    <div class="orb-1 absolute w-96 h-96 bg-white/30 rounded-full blur-3xl top-10 left-10"></div>
+    <div class="orb-2 absolute w-80 h-80 bg-rose-200/40 rounded-full blur-3xl bottom-10 right-10"></div>
+  </div>
+
+  <div class="relative z-10 w-full max-w-md p-8 bg-white/40 backdrop-blur-xl border border-white/60 rounded-[2rem] shadow-[0_8px_32px_0_rgba(225,29,72,0.15)] flex flex-col items-center text-center">
+    
+    <div id="phase-0" class="phase active show">
+      <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=400&q=80" alt="Curious Cat" class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg mb-6"/>
+      <h1 class="font-pinyon text-5xl text-rose-900 mb-8 leading-tight">Hi Darling Teddy...</h1>
+      <button onclick="nextPhase()" class="w-full py-4 px-6 bg-gradient-to-r from-rose-500 to-pink-500 text-white font-dancing text-2xl rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
+        Click for a Surprise, Pookie... ❤️
+      </button>
+    </div>
+
+    <div id="phase-1" class="phase">
+      <img src="https://images.unsplash.com/photo-1495360010541-f48722b34f7d?auto=format&fit=crop&w=400&q=80" alt="Thoughtful Cat" class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg mb-6"/>
+      <h2 class="font-dancing text-3xl text-rose-900 mb-8 font-bold leading-relaxed">Before we start... do you know what I was thinking about today?</h2>
+      <button onclick="nextPhase()" class="w-full py-4 px-6 bg-gradient-to-r from-rose-500 to-pink-500 text-white font-dancing text-2xl rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
+        What were you thinking? ❤️
+      </button>
+    </div>
+
+    <div id="phase-2" class="phase">
+      <img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=400&q=80" alt="Romantic Cat" class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg mb-6"/>
+      <p class="font-dancing text-3xl text-rose-900 mb-8 font-bold leading-relaxed">I was thinking about how some people look at the stars to find beauty... but I just have to look at you.</p>
+      <button onclick="nextPhase()" class="w-full py-4 px-6 bg-gradient-to-r from-rose-500 to-pink-500 text-white font-dancing text-2xl rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
+        Go on... 🥺
+      </button>
+    </div>
+
+    <div id="phase-3" class="phase">
+      <h2 class="font-pinyon text-4xl text-rose-900 mb-4">Because to me...</h2>
+      <div class="bg-white/60 border-2 border-rose-800 rounded-2xl p-6 mb-6 shadow-inner w-full">
+        <p class="font-dancing text-2xl text-rose-950 font-bold leading-relaxed">
+          Aap meri full moon day wali wo chandni ho jisko dekhne se kafi sukoon milta aur aapko dekhne se kiss karne ka man karta.
+        </p>
+      </div>
+      <p class="font-dancing text-2xl text-rose-900 mb-6 font-bold">So, before I let you go... can I have my kiss? 💋</p>
+      <button onclick="nextPhase()" class="btn-pulse w-full py-5 px-6 bg-gradient-to-r from-rose-600 to-pink-600 text-white font-dancing text-3xl rounded-full shadow-2xl">
+        Okay, KISS! 💋
+      </button>
+    </div>
+
+    <div id="phase-4" class="phase">
+      <img src="https://images.unsplash.com/photo-1592194996308-7b43878e84a6?auto=format&fit=crop&w=400&q=80" alt="Happy Cat" class="w-40 h-40 rounded-full object-cover border-4 border-white shadow-2xl mb-6"/>
+      <h1 class="font-pinyon text-6xl text-rose-900 mb-4 animate-bounce-subtle">I Love You Forever!</h1>
+      <div class="flex gap-2 text-3xl mt-4">
+        <span class="animate-bounce-subtle" style="animation-delay: 0s;">⭐</span>
+        <span class="animate-bounce-subtle" style="animation-delay: 0.2s;">❤️</span>
+        <span class="animate-bounce-subtle" style="animation-delay: 0.4s;">⭐</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let currentPhase = 0;
+    const totalPhases = 5;
+
+    function nextPhase() {
+      if (currentPhase >= totalPhases - 1) return;
+
+      const oldElement = document.getElementById(`phase-${currentPhase}`);
+      const newElement = document.getElementById(`phase-${currentPhase + 1}`);
+
+      // 1. Fade out old element
+      oldElement.classList.remove('show');
+      oldElement.classList.add('hide');
+
+      // 2. Wait for fade out to finish, then swap display and fade in new
+      setTimeout(() => {
+        oldElement.classList.remove('active', 'hide');
+        
+        newElement.classList.add('active');
+        
+        // Brief timeout to allow display:flex to apply before changing opacity
+        setTimeout(() => {
+          newElement.classList.add('show');
+        }, 50);
+
+        currentPhase++;
+
+        // Trigger Confetti if it's the final phase
+        if (currentPhase === 4) {
+          fireConfetti();
+        }
+
+      }, 500); // matches the 0.5s CSS transition
+    }
+
+    function fireConfetti() {
+      const duration = 3000;
+      const end = Date.now() + duration;
+
+      (function frame() {
+        confetti({
+          particleCount: 5,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: ['#ff0000', '#ff69b4', '#ff1493']
+        });
+        confetti({
+          particleCount: 5,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: ['#ff0000', '#ff69b4', '#ff1493']
+        });
+
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      }());
+    }
+  </script>
+</body>
+</html>
